@@ -1,0 +1,26 @@
+/// 1768. Merge Strings Alternately
+
+var mergeAlternately = function (word1, word2) {
+  let result = "";
+  let i = 0,
+    j = 0;
+
+  while (i < word1.length || j < word2.length) {
+    if (i < word1.length) {
+      result += word1[i];
+      i++;
+    }
+    if (j < word2.length) {
+      result += word2[j];
+      j++;
+    }
+  }
+  return result;
+};
+
+// Example 1:
+
+const word1 = "abc";
+const word2 = "def";
+const merged = mergeAlternately(word1, word2);
+console.log(merged); // Output: "adbecf"
