@@ -6,10 +6,12 @@ var flipAndInvertImage = function (imageMatrix) {
     let right = row.length - 1;
 
     while (left <= right) {
-      let temp = row[left] === 0 ? 1 : 0;
-      row[left] = row[right] === 0 ? 1 : 0;
-      row[right] = temp;
-
+      // let temp = row[left] === 0 ? 1 : 0;
+      // row[left] = row[right] === 0 ? 1 : 0;
+      // row[right] = temp;
+      const r = row[right] === 0 ? 1 : 0;
+      const l = row[left] === 0 ? 1 : 0;
+      [row[left], row[right]] = [r, l]; // short hand way to swap
       left++;
       right--;
     }
