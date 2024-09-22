@@ -1,8 +1,14 @@
 // 876. Middle of the Linked List
 
-class Node {
-  constructor(data) {
-    this.data = data;
-    this.next = null;
+var middleNode = function (head) {
+  let slow = head;
+  let fast = head;
+
+  while (fast && fast.next) {
+    slow = slow.next;
+    fast = fast.next.next;
   }
-}
+
+  return slow;
+};
+
