@@ -107,5 +107,5 @@ list.append(30);
 list.appendAt(2, 15); // Append 15 at index 2
 list.removeAt(3); // Remove the node at index 3
 
-list.print(); // Output: 5, 15, 20, 30
+// list.print(); // Output: 5, 15, 20, 30
 console.log(list);
