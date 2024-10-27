@@ -13,14 +13,19 @@ function quickSort(arr, l, r) {
 
 function partition(arr, l, r, pivot) {
   let i = l + 1;
+  // small data count
+  let count = l;
+
   for (let j = i; j <= r; j++) {
     if (arr[j] < pivot) {
-      swap(arr, i, j);
+      count++;
       i++;
     }
   }
-  swap(arr, l, i - 1);
-  return i - 1;
+
+  arr[l] = arr[count];
+  arr[count] = pivot;
+  return count;
 }
 
 function swap(arr, i, j) {
