@@ -36,7 +36,7 @@ class Stack {
     popNode.next = null;
     return popNode;
   }
-  peak() {
+  peek() {
     return this.head && this.head.value;
   }
 
