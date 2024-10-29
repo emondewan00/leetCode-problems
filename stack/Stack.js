@@ -56,5 +56,5 @@ stack.push("third value");
 
 stack.pop(); // Pops "third value"
 // stack.display();
-console.log(stack.peak());
+console.log(stack.peek());
 console.log(stack);
