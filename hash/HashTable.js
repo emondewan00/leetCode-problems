@@ -1,45 +1,70 @@
 // Hash table
 
 class HashTable {
-  constructor(size) {
+  constructor(size = 50) {
     this.table = Array.from({ length: size }, () => []);
     this.size = size;
   }
 
-  hash(value) {
-    const strVal = value.toString();
-    let sum = 0;
-    for (let i = 0; i < strVal.length; i++) {
-      sum += strVal.charCodeAt(i);
+  // Hash function to map keys to array indices
+  _hash(key) {
+    let hash = 0;
+    const keyStr = key.toString();
+    for (let i = 0; i < keyStr.length; i++) {
+      hash = (hash + keyStr.charCodeAt(i) * i) % this.size;
     }
-
-    return sum % this.size;
+    return hash;
   }
 
-  set(value) {
-    const index = this.hash(value);
-    this.table[index].push(value);
+  // Insert a key-value pair into the hash table
+  set(key, value) {
+    const index = this._hash(key);
+    // Check if key already exists and update it
+    for (let i = 0; i < this.table[index].length; i++) {
+      if (this.table[index][i][0] === key) {
+        this.table[index][i][1] = value;
+        return;
+      }
+    }
+    // Insert new key-value pair
+    this.table[index].push([key, value]);
   }
-  get(value) {
-    const index = this.hash(value);
-    const arr = this.table[index];
 
-    for (let i = 0; i < arr.length; i++) {
-      if (arr[i] === value) {
-        return true;
+  // Retrieve the value for a given key
+  get(key) {
+    const index = this._hash(key);
+    const bucket = this.table[index];
+    if (bucket) {
+      for (let [k, v] of bucket) {
+        if (k === key) {
+          return v;
+        }
+      }
+    }
+    return undefined;
+  }
+
+  // Remove a key-value pair from the hash table
+  remove(key) {
+    const index = this._hash(key);
+    const bucket = this.table[index];
+    if (bucket) {
+      for (let i = 0; i < bucket.length; i++) {
+        if (bucket[i][0] === key) {
+          bucket.splice(i, 1);
+          return true;
+        }
       }
     }
     return false;
   }
 }
 
-const table = new HashTable(5);
-
-table.set("hello");
-table.set("hi");
-table.set("emon");
-table.set("john");
-table.set("apple");
-console.log(table.table);
-console.log(table.get("emon"));
-console.log(table.get("john"));
+// Example usage
+const hashTable = new HashTable();
+hashTable.set("name", "Alice");
+hashTable.set("age", 25);
+console.log(hashTable.get("name")); // Output: "Alice"
+console.log(hashTable.get("age")); // Output: 25
+hashTable.remove("name");
+console.log(hashTable.get("name")); // Output: undefined
