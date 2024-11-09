@@ -9,12 +9,12 @@ class Node {
 class BST {
   constructor(value) {
     const node = new Node(value);
-    this.top = node;
+    this.root = node;
   }
 
   insert(value) {
     const node = new Node(value);
-    let currentNode = this.top;
+    let currentNode = this.root;
 
     while (currentNode) {
       if (currentNode.value > value) {
@@ -34,10 +34,21 @@ class BST {
       }
     }
   }
+
+  // search value in the BST
+  search(value) {
+    let current = this.root;
+    while (current) {
+      if (current.value === value) return true;
+      current = value < current.value ? current.left : current.right;
+    }
+    return false;
+  }
 }
 
 const bst = new BST(1);
 bst.insert(2);
 bst.insert(3);
 bst.insert(0);
-console.log(bst.top);
+console.log(bst.root);
+console.log(bst.search(1));
