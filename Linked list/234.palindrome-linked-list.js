@@ -16,7 +16,7 @@
  * @param {ListNode} head
  * @return {boolean}
  */
-var isPalindrome = function (head) {
+var isPalindrome1 = function (head) {
   const arr = [];
 
   let currentNode = head;
@@ -38,4 +38,38 @@ var isPalindrome = function (head) {
   }
   return true;
 };
+
+const isPalindrome = function (head) {
+  if (!head || !head.next) return true; // Empty or single-node list is a palindrome
+
+  let reverse = null;
+  let slow = head;
+  let fast = head;
+
+  // Find middle while reversing the first half
+  while (fast && fast.next) {
+    fast = fast.next.next; // Move fast pointer twice
+
+    // Reverse the first half
+    let next = slow.next;
+    slow.next = reverse;
+    reverse = slow;
+    slow = next;
+  }
+
+  // If the list is odd-length, move slow one step further
+  if (fast) {
+    slow = slow.next;
+  }
+
+  // Compare reversed first half with the second half
+  while (reverse && slow) {
+    if (reverse.val !== slow.val) return false;
+    reverse = reverse.next;
+    slow = slow.next;
+  }
+
+  return true;
+};
+
 // @lc code=end
